@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News · Monosov Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=2">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <section class="hero page-hero">
+    <canvas class="network" aria-hidden="true"></canvas>
+    <div class="hero-content">
+      <div class="eyebrow">News</div>
+      <h1>News Archive</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <!-- The home page shows the three newest items from this page (by year + date), so only edit news here.
+           Add data-img="images/news/....jpg" to a news-row to give it a picture on the home page. -->
+      <div class="year-block">
+        <div class="year-label">2026</div>
+        <div>
+          <div class="news-row" data-img="images/news/news-0924.png">
+            <div class="date">Sep 24</div>
+            <div>
+              <h3><span class="tag">Publication</span>New preprint: A prefrontal cortex–hypothalamus circuit for heart rate control in non-human primates</h3>
+              <p>Kevin Xu, Takaya Ogasawara, Jinyun Yuan, Ethan S. Bromberg-Martin, Mengxi Yun, Steven P. Errington, Andrew H. Stark, Takafumi Minamimoto, Ken-ichi Inoue, Hong Chen, and Ilya E. Monosov. <a href="https://doi.org/10.64898/2026.09.18.752614">Read the preprint</a>.</p>
+            </div>
+          </div>
+          <div class="news-row" data-img="images/people/linda-ma.png,images/people/kevin-liu.png">
+            <div class="date">Sep 15</div>
+            <div>
+              <h3><span class="tag">People</span>Welcome new lab members Linda Ma and Kevin Liu</h3>
+              <p>We are excited to welcome Linda Ma and Kevin Liu to the lab.</p>
+            </div>
+          </div>
+          <div class="news-row" data-img="images/news/news_0717.png">
+            <div class="date">Jul 17</div>
+            <div>
+              <h3><span class="tag">Publication</span>New preprint: Ecology of curiosity framework for adaptive and maladaptive human–AI ecosystems</h3>
+              <p>Ilya Monosov has posted a preprint on PsyArXiv developing a framework for curiosity in human–AI ecosystems. <a href="https://doi.org/10.31234/osf.io/w2cbs_v1">Read the preprint</a>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+  <script src="js/site.js?v=2"></script>
+</body>
+</html>
