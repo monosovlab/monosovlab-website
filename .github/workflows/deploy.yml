@@ -1,0 +1,35 @@
+name: Deploy to DreamHost
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare files to upload
+        run: |
+          mkdir -p _deploy
+          rsync -a \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude '_deploy/' \
+            --exclude '.DS_Store' \
+            --exclude 'README.md' \
+            --exclude 'LICENSE' \
+            --exclude 'tools/' \
+            ./ _deploy/
+
+      - name: Upload to DreamHost
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.5
+        with:
+          server: ${{ secrets.DREAMHOST_HOST }}
+          username: ${{ secrets.DREAMHOST_USER }}
+          ssh_private_key: ${{ secrets.DREAMHOST_SSH_KEY }}
+          local_path: './_deploy/*'
+          remote_path: ${{ secrets.DREAMHOST_PATH }}
+          sftpArgs: '-o ConnectTimeout=30'
