@@ -9,7 +9,7 @@ Open `home.html` in a browser to preview. No build step is needed.
 lab-website/
 ├── home.html           Home: intro over the animated hero, then latest news
 ├── research.html       Research themes and funding
-├── people.html         PI, members by role, alumni, "Join the lab"
+├── people.html         PI, members by role, "Join the lab"
 ├── publications.html   Papers by year, with search and type filter
 ├── methods.html        Approaches, plus a link to the lab GitHub
 ├── news.html           Full news archive by year
@@ -46,7 +46,6 @@ Edit `people.html`.
   ```
 
 - Add only the links that person has, as attributes on `.person`: `data-email`, `data-github`, `data-linkedin` (handle or full URL), `data-scholar` (the `user=` ID or the full profile URL), and `data-web` (a site address). A missing attribute shows no icon.
-- Alumni are `<li>` items in the `.alumni` list.
 - The **Join the Lab** text is the `.cta` section at the bottom of the page.
 
 ## News

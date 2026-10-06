@@ -376,14 +376,6 @@ a.more {
   color: var(--muted); margin: 6px 0 10px;
 }
 .person p { font-size: 16px; color: var(--text-soft); }
-.alumni { columns: 2; column-gap: 60px; list-style: none; }
-.alumni li { break-inside: avoid; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 17px; }
-.alumni li span { color: var(--muted); font-size: 15px; }
-.alumni a {
-  font-size: 14px; letter-spacing: .08em; color: var(--muted);
-  border-bottom: 1px solid currentColor; padding-bottom: 2px;
-}
-.alumni a:hover { color: var(--accent-ink); }
 
 .pub-tools {
   display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between;
@@ -494,7 +486,6 @@ footer { background: var(--dark); color: var(--light); padding: 100px 6vw 40px; 
   .panel-body h3 { font-size: 23px; }
   .panel-intro { font-size: 16px; }
   .panel-links { display: flex; flex-wrap: wrap; }
-  .alumni { columns: 1; }
   .year-block, .pub-year { grid-template-columns: 1fr; gap: 16px; }
   .year-label { font-size: 33px; }
   .news-row { grid-template-columns: 1fr; gap: 4px; }
