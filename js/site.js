@@ -231,13 +231,27 @@ const SITE = {
   });
 
   const canHover = matchMedia("(hover: hover) and (pointer: fine)").matches;
-  let hoverTimer;
-  const later = (fn, ms) => { clearTimeout(hoverTimer); hoverTimer = setTimeout(fn, ms); };
-  const cancel = () => clearTimeout(hoverTimer);
-  if (canHover) new Set(people.map(p => p.parentElement)).forEach(grid => {
-    grid.addEventListener("mouseenter", () => grid.contains(panel) && cancel());
-    grid.addEventListener("mouseleave", () => later(close, 500));
-  });
+  let hoverTimer, px = 0, py = 0;
+  const cancel = () => { clearTimeout(hoverTimer); hoverTimer = null; };
+  const overKeep = () => {
+    if (!current) return false;
+    const el = document.elementFromPoint(px, py);
+    if (!el) return false;
+    if (current === el || current.contains(el)) return true;
+    return !!el.closest("#person-panel .panel-inner");
+  };
+  const scheduleClose = () => {
+    if (hoverTimer) return;
+    hoverTimer = setTimeout(() => {
+      hoverTimer = null;
+      if (!overKeep()) close();
+    }, 500);
+  };
+  if (canHover) {
+    addEventListener("mousemove", e => { px = e.clientX; py = e.clientY; }, { passive: true });
+    panel.querySelector(".panel-inner").addEventListener("mouseenter", cancel);
+    panel.querySelector(".panel-inner").addEventListener("mouseleave", scheduleClose);
+  }
 
   people.forEach(person => {
     const photo = person.querySelector(".person-photo");
@@ -249,8 +263,11 @@ const SITE = {
     photo.setAttribute("aria-label", `About ${person.querySelector("h3").textContent}`);
     const toggle = () => current === person ? close() : open(person);
     if (canHover) {
-      photo.addEventListener("mouseenter", () => later(() => current !== person && open(person, true), 350));
-      photo.addEventListener("mouseleave", () => current !== person && cancel());
+      person.addEventListener("mouseenter", () => {
+        cancel();
+        if (current !== person) open(person, true);
+      });
+      person.addEventListener("mouseleave", scheduleClose);
     }
     photo.addEventListener("click", () => canHover ? (cancel(), current !== person && open(person)) : toggle());
     photo.addEventListener("keydown", e => {

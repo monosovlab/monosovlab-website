@@ -208,6 +208,16 @@ a.more {
 .news-row { transition: background 1.2s; }
 .news-row.highlight { background: var(--paper); box-shadow: inset 3px 0 var(--accent-ink); }
 .news-row p { font-size: 16px; color: var(--text-soft); margin-top: 4px; }
+a.read-paper,
+.news-row p a,
+.news-body p a {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+a.read-paper:hover,
+.news-row p a:hover,
+.news-body p a:hover { color: #1d4ed8; }
 .news-row .tag {
   font-size: 12px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase;
   color: var(--accent-ink); margin-right: 10px;
@@ -305,7 +315,8 @@ a.more {
   border-bottom: 1px solid currentColor; padding-bottom: 3px; transition: color .2s;
 }
 .person-links a:hover { color: var(--accent-ink); }
-.people-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 44px 30px; }
+.people-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 44px 30px; isolation: isolate; }
+.person { position: relative; z-index: 1; }
 .person-photo { position: relative; aspect-ratio: 3 / 4; overflow: hidden; margin-bottom: 18px; }
 .person-photo img { transition: transform .6s; }
 .person:hover .person-photo img { transform: scale(1.04); }
@@ -326,18 +337,21 @@ a.more {
 .person-photo:focus-visible { outline: 1px solid var(--accent-ink); outline-offset: 4px; }
 .person-panel {
   grid-column: 1 / -1; position: relative; z-index: 0;
-  height: 0; margin-top: -16px; opacity: 0; color: var(--light);
+  height: 0; margin-top: 0; opacity: 0; color: var(--light);
   transition: height .4s ease, opacity .3s;
+  pointer-events: none;
 }
-.person-panel.open { opacity: 1; }
+.person-panel.open { opacity: 1; pointer-events: auto; }
 .person-panel::after {
   content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: 50%;
   width: 100vw; transform: translateX(-50%); background: var(--dark);
+  pointer-events: none;
 }
 .person-panel::before {
   content: ""; position: absolute; top: -8px; left: var(--caret, 50%);
   width: 16px; height: 16px; background: var(--dark);
   transform: translateX(-50%) rotate(45deg); transition: left .35s ease;
+  pointer-events: none;
 }
 .person-panel.instant, .person-panel.instant::before { transition: none; }
 .person-panel.ghost { pointer-events: none; }
