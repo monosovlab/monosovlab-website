@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jh.monosovlab.org/sitemap.xml
