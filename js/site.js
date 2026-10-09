@@ -16,13 +16,6 @@ const SITE = {
   ],
   address: ["Room 275, Maxine F. Singer Building", "3520 San Martin Dr", "Baltimore, MD 21218"],
   email: "ilya.monosov@gmail.com",
-  footerLinks: [
-    { label: "Graduate Programs", href: "https://neuroscience.jhu.edu/graduate" },
-    { label: "Neuroscience Department", href: "https://neuroscience.jhu.edu/" },
-    { label: "Find us on social media", href: "https://x.com/MonosovLab" },
-    { label: "GitHub", href: "https://github.com/monosovlab" },
-    { label: "Support Our Mission", href: "support.html" },
-  ],
 };
 
 (function buildLayout() {
@@ -46,10 +39,6 @@ const SITE = {
           <h4>Find Us</h4>
           <address>${SITE.address.join("<br>")}</address>
           <a href="mailto:${SITE.email}">${SITE.email}</a>
-        </div>
-        <div class="foot-col">
-          <h4>Links</h4>
-          ${SITE.footerLinks.map(l => `<a href="${l.href}">${l.label}</a>`).join("")}
         </div>
       </div>
       <div class="foot-bottom">
