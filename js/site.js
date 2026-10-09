@@ -16,7 +16,78 @@ const SITE = {
   ],
   address: ["Room 275, Maxine F. Singer Building", "3520 San Martin Dr", "Baltimore, MD 21218"],
   email: "ilya.monosov@gmail.com",
+  origin: "https://jh.monosovlab.org",
 };
+
+(function seo() {
+  const origin = SITE.origin;
+  const file = location.pathname.split("/").pop() || "home.html";
+  const path = file === "index.html" ? "home.html" : file;
+  const canonical = document.querySelector('link[rel="canonical"]');
+  const url = canonical ? canonical.href : `${origin}/${path}`;
+  const image = `${origin}/images/lab-logo.png`;
+  let desc = document.querySelector('meta[name="description"]');
+  if (!desc) {
+    const fromPage = (document.querySelector(".lead, .hero-content .tagline, .prose p, .pi p") || {}).textContent || "";
+    const text = fromPage.replace(/\s+/g, " ").trim();
+    if (text) {
+      desc = document.createElement("meta");
+      desc.name = "description";
+      desc.content = text.length > 160 ? text.slice(0, 157) + "…" : text;
+      document.head.appendChild(desc);
+    }
+  }
+  const add = (attr, key, val) => {
+    if (!val || document.querySelector(`meta[${attr}="${key}"]`)) return;
+    const el = document.createElement("meta");
+    el.setAttribute(attr, key);
+    el.content = val;
+    document.head.appendChild(el);
+  };
+  add("property", "og:type", path === "home.html" ? "website" : "article");
+  add("property", "og:site_name", "Monosov Lab");
+  add("property", "og:title", document.title);
+  add("property", "og:description", desc && desc.content);
+  add("property", "og:url", url);
+  add("property", "og:image", image);
+  add("name", "twitter:card", "summary");
+  add("name", "twitter:title", document.title);
+  add("name", "twitter:description", desc && desc.content);
+  if (document.querySelector('script[type="application/ld+json"]')) return;
+  const script = document.createElement("script");
+  script.type = "application/ld+json";
+  script.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ResearchOrganization",
+        "@id": `${origin}/#lab`,
+        name: "Monosov Lab",
+        alternateName: ["Laboratory of Adaptive and Maladaptive Intelligence", "LAMI"],
+        url: `${origin}/`,
+        logo: image,
+        email: SITE.email,
+        parentOrganization: { "@type": "CollegeOrUniversity", name: SITE.university },
+        founder: { "@id": `${origin}/#ilya` },
+      },
+      {
+        "@type": "Person",
+        "@id": `${origin}/#ilya`,
+        name: "Ilya E. Monosov",
+        honorificSuffix: "PhD",
+        jobTitle: "Bloomberg Distinguished Professor",
+        url: `${origin}/people.html`,
+        image: `${origin}/images/people/ilya-monosov.png`,
+        sameAs: [
+          "https://scholar.google.com/citations?user=UZ46kzgAAAAJ&hl=en",
+          "https://neuroscience.jhu.edu/research/faculty/176",
+        ],
+      },
+      { "@type": "WebSite", name: "Monosov Lab", url: `${origin}/`, publisher: { "@id": `${origin}/#lab` } },
+    ],
+  });
+  document.head.appendChild(script);
+})();
 
 (function buildLayout() {
   const here = location.pathname.split("/").pop() || "home.html";
