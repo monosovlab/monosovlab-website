@@ -2,17 +2,17 @@ const SITE = {
   labName: "Monosov Lab",
   university: "Johns Hopkins University",
   menu: [
-    { label: "Home", href: "home.html" },
-    { label: "Research", href: "research.html" },
-    { label: "People", href: "people.html" },
-    { label: "Publications", href: "publications.html" },
-    { label: "Methods", href: "methods.html" },
-    { label: "News", href: "news.html" },
-    { label: "Support", href: "support.html" },
+    { label: "Home", href: "/" },
+    { label: "Research", href: "/research.html" },
+    { label: "People", href: "/people.html" },
+    { label: "Publications", href: "/publications.html" },
+    { label: "Methods", href: "/methods.html" },
+    { label: "News", href: "/news.html" },
+    { label: "Support", href: "/support.html" },
   ],
   logos: [
     { label: "Johns Hopkins University", src: "images/JHU_logo.jpg", href: "https://www.jhu.edu/" },
-    { label: "Laboratory of Adaptive and Maladaptive Intelligence", src: "images/lab-logo.png", href: "home.html" },
+    { label: "Laboratory of Adaptive and Maladaptive Intelligence", src: "images/lab-logo.png", href: "/" },
   ],
   address: ["Room 275, Maxine F. Singer Building", "3520 San Martin Dr", "Baltimore, MD 21218"],
   email: "ilya.monosov@gmail.com",
@@ -21,8 +21,9 @@ const SITE = {
 
 (function seo() {
   const origin = SITE.origin;
-  const file = location.pathname.split("/").pop() || "home.html";
-  const path = file === "index.html" ? "home.html" : file;
+  const file = location.pathname.split("/").pop();
+  const isHome = !file || file === "index.html" || file === "home.html";
+  const path = isHome ? "" : file;
   const canonical = document.querySelector('link[rel="canonical"]');
   const url = canonical ? canonical.href : `${origin}/${path}`;
   const image = `${origin}/images/lab-logo.png`;
@@ -44,7 +45,7 @@ const SITE = {
     el.content = val;
     document.head.appendChild(el);
   };
-  add("property", "og:type", path === "home.html" ? "website" : "article");
+  add("property", "og:type", isHome ? "website" : "article");
   add("property", "og:site_name", "Monosov Lab");
   add("property", "og:title", document.title);
   add("property", "og:description", desc && desc.content);
@@ -90,10 +91,11 @@ const SITE = {
 })();
 
 (function buildLayout() {
-  const here = location.pathname.split("/").pop() || "home.html";
+  const file = location.pathname.split("/").pop();
+  const here = !file || file === "index.html" || file === "home.html" ? "/" : `/${file}`;
   const header = `
     <header class="site-header" id="header">
-      <a href="home.html" class="logo">${SITE.labName}</a>
+      <a href="/" class="logo">${SITE.labName}</a>
       <nav class="top-nav" aria-label="Main">
         ${SITE.menu.map(m => `<a href="${m.href}"${m.href === here ? ' class="active"' : ""}>${m.label}</a>`).join("")}
       </nav>
