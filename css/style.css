@@ -96,6 +96,7 @@ img { max-width: 100%; display: block; }
   font-size: clamp(21px, 6vw, 65px); font-weight: 300; text-transform: uppercase;
   letter-spacing: .02em; line-height: 1.15; margin-bottom: 26px;
 }
+.hero h1 .hero-line { display: block; }
 .page-hero h1 { font-size: clamp(37px, 5vw, 61px); margin-bottom: 18px; }
 .hero .tagline { font-style: italic; font-size: clamp(19px, 2vw, 23px); opacity: .9; margin-bottom: 36px; }
 .page-hero .tagline { margin-bottom: 0; opacity: .8; }
