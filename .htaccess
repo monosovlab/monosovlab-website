@@ -1,2 +1,1 @@
-DirectoryIndex index.html
-Redirect 301 /home.html /
+DirectoryIndex index.html home.html

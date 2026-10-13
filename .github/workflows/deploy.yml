@@ -23,6 +23,8 @@ jobs:
             --exclude 'LICENSE' \
             --exclude 'tools/' \
             ./ _deploy/
+          # DreamHost serves home.html for /. Always overwrite it with the real homepage.
+          cp index.html _deploy/home.html
 
       - name: Upload to DreamHost
         uses: wlixcc/SFTP-Deploy-Action@v1.2.5
