@@ -25,6 +25,13 @@ jobs:
             ./ _deploy/
           # DreamHost serves home.html for /. Always overwrite it with the real homepage.
           cp index.html _deploy/home.html
+          if [ -f LOCK ]; then
+            for f in _deploy/*.html; do
+              [ "$(basename "$f")" = "closed.html" ] && continue
+              cp closed.html "$f"
+            done
+            printf '%s\n' 'User-agent: *' 'Disallow: /' > _deploy/robots.txt
+          fi
 
       - name: Upload to DreamHost
         uses: wlixcc/SFTP-Deploy-Action@v1.2.5

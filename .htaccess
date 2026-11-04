@@ -1,1 +1,5 @@
 DirectoryIndex index.html home.html
+
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !^/closed\.html$
+RewriteRule ^ closed.html [L]
